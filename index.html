@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Landman Properties Ltd — premium property, homes, apartments and land opportunities across Kenya.">
+  <title>Landman Properties Ltd | Find Your Place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#111827;--muted:#687386;--paper:#f7f8f5;--white:#fff;
+      --brand:#0d6b55;--brand2:#164c40;--lime:#d7ee75;--line:#e7eae5;
+      --shadow:0 24px 70px rgba(17,24,39,.10);--radius:24px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+    a{text-decoration:none;color:inherit} button,input,select{font:inherit}
+    .container{width:min(1180px,calc(100% - 40px));margin:auto}
+    .topbar{background:#0e3028;color:#dce9e3;font-size:13px}
+    .topbar .inner{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .topbar span{opacity:.9}.toplinks{display:flex;gap:22px}
+    header{position:sticky;top:0;z-index:50;background:rgba(247,248,245,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(231,234,229,.8)}
+    nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .logo{display:flex;align-items:center;gap:11px;font-family:Manrope;font-weight:800;letter-spacing:-.5px}
+    .logo-mark{width:38px;height:38px;border-radius:12px;background:var(--brand);display:grid;place-items:center;color:white;font-weight:800}
+    .navlinks{display:flex;align-items:center;gap:27px;color:#4c5965;font-size:14px;font-weight:600}
+    .navlinks a:hover{color:var(--brand)}
+    .nav-actions{display:flex;align-items:center;gap:10px}.btn{border:0;border-radius:999px;padding:13px 20px;font-weight:700;cursor:pointer;transition:.25s}
+    .btn-dark{background:#102f28;color:#fff}.btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,47,40,.2)}
+    .btn-light{background:#fff;border:1px solid var(--line)}.btn-green{background:var(--brand);color:#fff}
+    .menu{display:none;border:0;background:none;font-size:28px}
+    .hero{padding:42px 0 70px}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--brand);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+    .eyebrow:before{content:"";width:26px;height:2px;background:var(--brand)}
+    h1,h2,h3{font-family:Manrope;letter-spacing:-.045em;line-height:1.05;margin:0}
+    h1{font-size:clamp(48px,6vw,82px);max-width:730px;margin:17px 0 20px}
+    .hero-copy{font-size:18px;color:var(--muted);max-width:590px}.hero-buttons{display:flex;gap:12px;margin:28px 0 30px;flex-wrap:wrap}
+    .trust{display:flex;gap:25px;flex-wrap:wrap;color:#5e6974;font-size:13px}.trust strong{display:block;color:var(--ink);font-size:20px;font-family:Manrope}
+    .hero-media{position:relative}.hero-img{height:580px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow);background:url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85") center/cover}
+    .hero-img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.38))}
+    .floating{position:absolute;z-index:2;left:-28px;bottom:28px;background:#fff;border:1px solid rgba(255,255,255,.8);padding:18px 20px;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.14);width:250px}
+    .floating small{color:var(--muted)}.floating strong{display:block;font-size:20px;margin-top:3px}
+    .search{margin-top:-22px;position:relative;z-index:5}.search-box{background:#fff;border:1px solid var(--line);border-radius:22px;padding:12px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;box-shadow:var(--shadow)}
+    .field{background:#f7f8f6;border-radius:14px;padding:9px 14px}.field label{display:block;font-size:11px;color:#7a8490;text-transform:uppercase;font-weight:800;letter-spacing:.08em}.field select{width:100%;border:0;background:none;outline:0;font-weight:700;color:var(--ink);padding-top:4px}
+    section{padding:100px 0}.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:36px}.section-head h2{font-size:clamp(36px,4vw,55px);max-width:640px}.section-head p{max-width:420px;color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s}.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .card-img{height:250px;background-size:cover;background-position:center;position:relative}.tag{position:absolute;top:16px;left:16px;background:#fff;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800}.price{position:absolute;right:16px;bottom:16px;background:#102f28;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800}
+    .card-body{padding:21px}.card-body h3{font-size:21px;margin-bottom:6px}.location{color:var(--muted);font-size:14px}.meta{display:flex;gap:15px;color:#66717c;font-size:13px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
+    .dark{background:#102f28;color:#fff}.dark .section-head p,.dark .muted{color:#b9c9c2}
+    .services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.service{padding:27px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:rgba(255,255,255,.05)}.service .icon{width:42px;height:42px;border-radius:13px;background:var(--lime);color:#18372e;display:grid;place-items:center;font-weight:900;margin-bottom:32px}.service h3{font-size:20px;margin-bottom:8px}.service p{color:#b9c9c2;font-size:14px}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.about-img{height:560px;border-radius:28px;background:url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85") center/cover}
+    .about-copy h2{font-size:clamp(38px,4vw,60px);margin:15px 0 20px}.about-copy p{color:var(--muted);font-size:17px}.checks{display:grid;gap:13px;margin:28px 0}.check{display:flex;gap:11px;align-items:center;font-weight:700}.check i{width:23px;height:23px;border-radius:50%;background:#dff2bd;color:#235b3d;display:grid;place-items:center;font-style:normal;font-size:12px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:28px}.stat{background:#fff;padding:23px}.stat strong{font:800 34px Manrope}.stat span{display:block;color:var(--muted);font-size:13px}
+    .cta{background:linear-gradient(135deg,#dff48a,#bfe8a2);border-radius:30px;padding:60px;display:flex;justify-content:space-between;align-items:center;gap:30px}.cta h2{font-size:clamp(35px,4vw,56px);max-width:700px}.cta p{color:#456154;max-width:560px}
+    footer{background:#0c2520;color:#d9e4df;padding:65px 0 25px}.footgrid{display:grid;grid-template-columns:1.4fr .8fr .8fr 1fr;gap:40px}.footer-brand p{color:#91aaa1;max-width:330px}.foot h4{color:#fff;margin:0 0 16px}.foot a{display:block;color:#9db1aa;margin:10px 0;font-size:14px}.copyright{border-top:1px solid rgba(255,255,255,.1);margin-top:45px;padding-top:20px;color:#7f968f;font-size:13px;display:flex;justify-content:space-between}
+    .wa{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25d366;color:white;display:grid;place-items:center;font-size:25px;box-shadow:0 14px 30px rgba(0,0,0,.2);z-index:60}
+    .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}.reveal.show{opacity:1;transform:none}
+    @media(max-width:950px){.navlinks,.nav-actions .btn{display:none}.menu{display:block}.hero-grid,.split{grid-template-columns:1fr}.hero-img{height:480px}.floating{left:18px}.cards{grid-template-columns:1fr 1fr}.services{grid-template-columns:1fr 1fr}.search-box{grid-template-columns:1fr 1fr}.search-box .btn{grid-column:span 2}.footgrid{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.container{width:min(100% - 24px,1180px)}.toplinks{display:none}.hero{padding-top:25px}.hero-img{height:410px;border-radius:23px}h1{font-size:48px}.cards,.services,.stats,.footgrid{grid-template-columns:1fr}.search-box{grid-template-columns:1fr}.search-box .btn{grid-column:auto}.section-head{display:block}.cta{padding:35px 25px;display:block}.cta .btn{margin-top:15px}.copyright{display:block}.copyright span{display:block;margin-top:8px}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="container inner"><span>Landman Properties Ltd · Trusted Kenyan real estate professionals</span><div class="toplinks"><span>✦ Verified listings</span><span>✦ Property consultations</span></div></div></div>
+  <header><nav class="container">
+    <a class="logo" href="#"><img src="landman-logo.jpg" alt="Landman Properties Ltd" style="width:180px;height:auto;display:block"></a>
+    <div class="navlinks"><a href="#properties">Properties</a><a href="#services">Services</a><a href="#about">About</a><a href="#stories">Why Landman</a><a href="#contact">Contact</a></div>
+    <div class="nav-actions"><a class="btn btn-light" href="tel:+254798421521">0798 421521</a><a class="btn btn-dark" href="#contact">Book a consultation</a><button class="menu" aria-label="Menu">☰</button></div>
+  </nav></header>
+
+  <main>
+    <section class="hero"><div class="container hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Property, simplified</div>
+        <h1>Find a place that feels like <em style="color:var(--brand);font-style:normal">home.</em></h1>
+        <p class="hero-copy">Discover carefully selected homes, apartments, commercial spaces and prime land opportunities across Kenya — with a team that guides you from search to ownership.</p>
+        <div class="hero-buttons"><a class="btn btn-dark" href="#properties">Explore properties ↗</a><a class="btn btn-light" href="#contact">Talk to an expert</a></div>
+        <div class="trust"><div><strong>2013</strong>Established</div><div><strong>10+</strong>Years of trust</div><div><strong>Kenya</strong>Local expertise</div></div>
+      </div>
+      <div class="hero-media reveal"><div class="hero-img"></div><div class="floating"><small>Featured opportunity</small><strong>Prime land & homes</strong><span style="font-size:13px;color:#687386">Talk to Landman for current availability →</span></div></div>
+    </div></section>
+
+    <div class="container search reveal"><div class="search-box">
+      <div class="field"><label>Looking for</label><select><option>Any property</option><option>Homes</option><option>Apartments</option><option>Land</option><option>Commercial</option></select></div>
+      <div class="field"><label>Location</label><select><option>Any location</option><option>Nairobi</option><option>Kiambu</option><option>Nyeri</option><option>Other Kenya</option></select></div>
+      <div class="field"><label>Purpose</label><select><option>Buy</option><option>Rent</option><option>Invest</option></select></div>
+      <button class="btn btn-green" onclick="document.querySelector('#properties').scrollIntoView({behavior:'smooth'})">Search properties</button>
+    </div></div>
+
+    <section id="properties"><div class="container">
+      <div class="section-head reveal"><div><div class="eyebrow">Featured opportunities</div><h2>Spaces worth<br>coming home to.</h2></div><p>Explore a refreshed selection layout designed to make Landman's property catalogue easier to scan, compare and enquire about.</p></div>
+      <div class="cards">
+        <article class="card reveal"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=85')"><span class="tag">For Sale</span><span class="price">Enquire</span></div><div class="card-body"><h3>Contemporary Family Home</h3><div class="location">Nairobi · Kenya</div><div class="meta"><span>4 Beds</span><span>3 Baths</span><span>Modern finish</span></div></div></article>
+        <article class="card reveal"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85')"><span class="tag">For Rent</span><span class="price">Enquire</span></div><div class="card-body"><h3>Premium City Apartment</h3><div class="location">Nairobi · Kenya</div><div class="meta"><span>2 Beds</span><span>2 Baths</span><span>Secure</span></div></div></article>
+        <article class="card reveal"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85')"><span class="tag">Land</span><span class="price">Enquire</span></div><div class="card-body"><h3>Prime Development Land</h3><div class="location">Kenya · Investment opportunity</div><div class="meta"><span>Prime location</span><span>Ready title</span><span>Investment</span></div></div></article>
+      </div>
+    </div></section>
+
+    <section id="services" class="dark"><div class="container">
+      <div class="section-head reveal"><div><div class="eyebrow" style="color:var(--lime)">What we do</div><h2>Real estate expertise, without the noise.</h2></div><p>From finding the right property to marketing your own, Landman supports the full property journey.</p></div>
+      <div class="services">
+        <div class="service reveal"><div class="icon">⌂</div><h3>Homes & Rentals</h3><p>Residential buying and rental support tailored to your needs and budget.</p></div>
+        <div class="service reveal"><div class="icon">▦</div><h3>Apartments</h3><p>Discover apartments for living, renting and long-term investment.</p></div>
+        <div class="service reveal"><div class="icon">▤</div><h3>Commercial</h3><p>Shops, offices and commercial spaces for growing businesses.</p></div>
+        <div class="service reveal"><div class="icon">↗</div><h3>Prime Land</h3><p>Agricultural and development land opportunities across Kenya.</p></div>
+      </div>
+    </div></section>
+
+    <section id="about"><div class="container split">
+      <div class="about-img reveal"></div>
+      <div class="about-copy reveal"><div class="eyebrow">About Landman</div><h2>A trusted partner for your next property move.</h2><p>Landman Properties Ltd was incorporated in 2013 and has grown through a commitment to customer service, property expertise and long-term relationships.</p><p>We combine local market knowledge with a modern, transparent experience so buyers, renters, investors and property owners can make confident decisions.</p>
+      <div class="checks"><div class="check"><i>✓</i> Customer-first property guidance</div><div class="check"><i>✓</i> Residential, commercial & land expertise</div><div class="check"><i>✓</i> Professional property marketing</div></div>
+      <a class="btn btn-dark" href="#contact">Meet the Landman team →</a></div>
+    </div></section>
+
+    <section id="stories" style="padding-top:20px"><div class="container"><div class="section-head reveal"><div><div class="eyebrow">Why Landman</div><h2>A modern experience built around trust.</h2></div></div><div class="stats reveal"><div class="stat"><strong>2013</strong><span>Year established</span></div><div class="stat"><strong>Kenya</strong><span>Local market expertise</span></div><div class="stat"><strong>1:1</strong><span>Personal property guidance</span></div></div></div></section>
+
+    <section><div class="container"><div class="cta reveal"><div><div class="eyebrow" style="color:#244f3c">Let's find your next move</div><h2>Have a property in mind?</h2><p>Tell us what you are looking for and our team can guide you through the next step.</p></div><a class="btn btn-dark" href="tel:+254798421521">Call 0798 421521 ↗</a></div></div></section>
+  </main>
+
+  <footer id="contact"><div class="container">
+    <div class="footgrid">
+      <div class="footer-brand"><a class="logo" href="#"><img src="landman-logo.jpg" alt="Landman Properties Ltd" style="width:180px;height:auto;display:block;background:#fff;border-radius:8px;padding:5px"></a><p>Helping you find, buy, rent and market property with confidence.</p></div>
+      <div class="foot"><h4>Explore</h4><a href="#properties">Properties</a><a href="#services">Services</a><a href="#about">About us</a><a href="#stories">Why Landman</a></div>
+      <div class="foot"><h4>Services</h4><a href="#services">Residential</a><a href="#services">Apartments</a><a href="#services">Commercial</a><a href="#services">Land</a></div>
+      <div class="foot"><h4>Get in touch</h4>
+<a href="tel:+254798421521">0798 421521 · Mobile</a>
+<a href="mailto:landmankenya@gmail.com">landmankenya@gmail.com</a>
+<a href="https://landmankenya.co.ke/">landmankenya.co.ke</a>
+<a href="https://wa.me/254798421521">WhatsApp Landman</a></div>
+    </div>
+    <div class="copyright"><span>© <span id="year"></span> Landman Properties Ltd. All rights reserved.</span><span>Designed with a premium, mobile-first experience.</span></div>
+  </div></footer>
+  <a class="wa" href="https://wa.me/254798421521" aria-label="WhatsApp">◔</a>
+
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    document.querySelector('.menu').addEventListener('click',()=>{
+      const n=document.querySelector('.navlinks');
+      const open=n.dataset.open==='1'; n.dataset.open=open?'0':'1';
+      n.style.cssText=open?'':'display:flex;position:absolute;left:12px;right:12px;top:78px;background:white;padding:20px;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.12);flex-direction:column;align-items:flex-start';
+    });
+  </script>
+</body>
+</html>
