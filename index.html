@@ -22,7 +22,7 @@
     .topbar .inner{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:20px}
     .topbar span{opacity:.9}.toplinks{display:flex;gap:22px}
     header{position:sticky;top:0;z-index:50;background:rgba(247,248,245,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(231,234,229,.8)}
-    nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    nav{height:92px;display:flex;align-items:center;justify-content:space-between;gap:28px}
     .logo{display:flex;align-items:center;gap:11px;font-family:Manrope;font-weight:800;letter-spacing:-.5px}
     .logo-mark{width:38px;height:38px;border-radius:12px;background:var(--brand);display:grid;place-items:center;color:white;font-weight:800}
     .navlinks{display:flex;align-items:center;gap:27px;color:#4c5965;font-size:14px;font-weight:600}
@@ -57,10 +57,10 @@
     footer{background:#0c2520;color:#d9e4df;padding:65px 0 25px}.footgrid{display:grid;grid-template-columns:1.4fr .8fr .8fr 1fr;gap:40px}.footer-brand p{color:#91aaa1;max-width:330px}.foot h4{color:#fff;margin:0 0 16px}.foot a{display:block;color:#9db1aa;margin:10px 0;font-size:14px}.copyright{border-top:1px solid rgba(255,255,255,.1);margin-top:45px;padding-top:20px;color:#7f968f;font-size:13px;display:flex;justify-content:space-between}
     .wa{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25d366;color:white;display:grid;place-items:center;font-size:25px;box-shadow:0 14px 30px rgba(0,0,0,.2);z-index:60}
     .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}.reveal.show{opacity:1;transform:none}
-    .brand-logo{width:185px;height:auto;max-height:58px;object-fit:contain;object-position:left center;display:block}
-    .footer-logo{background:#fff;border-radius:8px;padding:5px;width:185px;max-height:62px}
+    .brand-logo{width:225px;height:auto;max-height:72px;object-fit:contain;object-position:left center;display:block}
+    .footer-logo{width:215px;max-height:72px;background:#fff;border-radius:8px;padding:5px}
     @media(max-width:950px){.navlinks,.nav-actions .btn{display:none}.menu{display:block}.hero-grid,.split{grid-template-columns:1fr}.hero-img{height:480px}.floating{left:18px}.cards{grid-template-columns:1fr 1fr}.services{grid-template-columns:1fr 1fr}.search-box{grid-template-columns:1fr 1fr}.search-box .btn{grid-column:span 2}.footgrid{grid-template-columns:1fr 1fr}}
-    @media(max-width:620px){.container{width:min(100% - 24px,1180px)}.toplinks{display:none}.hero{padding-top:25px}.hero-img{height:410px;border-radius:23px}h1{font-size:48px}.cards,.services,.stats,.footgrid{grid-template-columns:1fr}.search-box{grid-template-columns:1fr}.search-box .btn{grid-column:auto}.section-head{display:block}.cta{padding:35px 25px;display:block}.cta .btn{margin-top:15px}.copyright{display:block}.copyright span{display:block;margin-top:8px}}
+    @media(max-width:620px){.container{width:min(100% - 24px,1180px)}.toplinks{display:none}.hero{padding-top:25px}nav{height:82px}.hero-img{height:410px;border-radius:23px}h1{font-size:48px}.brand-logo{width:190px;max-height:60px}.footer-logo{width:190px;max-height:60px}.cards,.services,.stats,.footgrid{grid-template-columns:1fr}.search-box{grid-template-columns:1fr}.search-box .btn{grid-column:auto}.section-head{display:block}.cta{padding:35px 25px;display:block}.cta .btn{margin-top:15px}.copyright{display:block}.copyright span{display:block;margin-top:8px}}
   </style>
 </head>
 <body>
@@ -143,7 +143,7 @@
     document.querySelector('.menu').addEventListener('click',()=>{
       const n=document.querySelector('.navlinks');
       const open=n.dataset.open==='1'; n.dataset.open=open?'0':'1';
-      n.style.cssText=open?'':'display:flex;position:absolute;left:12px;right:12px;top:78px;background:white;padding:20px;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.12);flex-direction:column;align-items:flex-start';
+      n.style.cssText=open?'':'display:flex;position:absolute;left:12px;right:12px;top:82px;background:white;padding:20px;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.12);flex-direction:column;align-items:flex-start';
     });
   </script>
 </body>
