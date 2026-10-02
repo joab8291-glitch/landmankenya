@@ -15,7 +15,7 @@
       --shadow:0 24px 70px rgba(17,24,39,.10);--radius:24px;
     }
     *{box-sizing:border-box} html{scroll-behavior:auto}
-    body:before{content:"";position:fixed;inset:0;background:url("/landman-logo.jpg") center 46%/min(720px,58vw) auto no-repeat;opacity:.035;pointer-events:none;z-index:-1;filter:grayscale(1)}
+    body:before{content:"";position:fixed;inset:0;background:url("/landman-logo.jpg") center 46%/min(720px,58vw) auto no-repeat;opacity:.025;pointer-events:none;z-index:-1;filter:grayscale(1)}
     body{margin:0;font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
     a{text-decoration:none;color:inherit} button,input,select{font:inherit}
     .container{width:min(1180px,calc(100% - 40px));margin:auto}
@@ -84,7 +84,7 @@
       <div class="hero-media reveal"><div class="hero-img"></div><div class="floating"><small>Property owner support</small><strong>We manage. You stay informed.</strong><span style="font-size:13px;color:#687386">Rent · Tenants · Maintenance · Reporting →</span></div></div>
     </div></section>
 
-    <div class="container reveal"><div class="owner-strip" style="background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)"><div><strong style="font:800 22px Manrope">Own rental property in Kenya?</strong><div style="color:var(--muted);margin-top:4px">Let Landman handle the day-to-day management while you focus on your investment.</div></div><a class="btn btn-green" href="/contact/">Talk to a property manager ↗</a></div></div>
+    <div class="container reveal"><div class="owner-strip" style="background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)"><div><div class="eyebrow">Property owners & investors</div><strong style="font:800 24px Manrope">One professional partner for your property.</strong><div style="color:var(--muted);margin-top:6px">Management, tenants, rent, maintenance and reporting — handled for you.</div></div><a class="btn btn-green" href="/contact/">Request a management consultation ↗</a></div></div><a class="btn btn-green" href="/contact/">Talk to a property manager ↗</a></div></div>
 
     <section id="properties"><div class="container">
       <div class="section-head reveal"><div><div class="eyebrow">For property owners & investors</div><h2>Professional management for properties that matter.</h2></div><p>From tenant placement and rent collection to inspections, maintenance and reporting, we take care of the operational work behind your property.</p></div>
@@ -97,7 +97,16 @@
     </div></section>
 
     <section id="services" class="dark"><div class="container">
-      <div class="section-head reveal"><div><div class="eyebrow" style="color:var(--lime)">Property management services</div><h2>We handle the work behind your investment.</h2></div><p>Our management approach covers the operational details that keep properties occupied, maintained and accountable.</p></div>
+      <div class="section-head reveal"><div><div class="eyebrow" style="color:var(--lime)">Our services</div><div class="service-grid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:30px">
+<div class="service reveal"><div class="icon">⌂</div><h3>Property Management</h3><p>End-to-end oversight of your residential or commercial property, from daily operations to tenant relationships.</p></div>
+<div class="service reveal"><div class="icon">✓</div><h3>Tenant Management</h3><p>Tenant placement, screening, onboarding, communication and lease administration.</p></div>
+<div class="service reveal"><div class="icon">▣</div><h3>Rent Collection</h3><p>Rent collection, arrears follow-up, reconciliations and clear owner reporting.</p></div>
+<div class="service reveal"><div class="icon">⌁</div><h3>Maintenance & Inspections</h3><p>Routine inspections, maintenance coordination and timely response to property issues.</p></div>
+<div class="service reveal"><div class="icon">↗</div><h3>Property Marketing & Letting</h3><p>Professional marketing and letting support designed to reduce vacancy and attract suitable tenants.</p></div>
+<div class="service reveal"><div class="icon">▤</div><h3>Financial & Portfolio Reporting</h3><p>Practical visibility into income, expenses, occupancy, arrears and property performance.</p></div>
+<div class="service reveal"><div class="icon">◇</div><h3>Lease Administration</h3><p>Organised lease records, renewals, tenant documentation and ongoing administration.</p></div>
+<div class="service reveal"><div class="icon">◆</div><h3>Sales & Advisory</h3><p>Property sales, acquisition support and practical advice for owners and investors.</p></div>
+</div><h2>Complete property management, from tenant to portfolio.</h2></div><p>Landman handles the day-to-day work behind residential and commercial properties, giving owners one professional partner for management, leasing, collections, maintenance and reporting.</p></div>
       <div class="services">
         <div class="service reveal"><div class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5h16v14"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div><h3>Tenant Management</h3><p>Tenant sourcing, screening, onboarding, communication and lease administration.</p></div>
         <div class="service reveal"><div class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 20V8l7-5 7 5v12"/><path d="M9 20v-5h6v5M8 10h2M14 10h2"/></svg></div><h3>Rent Collection</h3><p>Structured rent follow-up, arrears management and clear owner statements.</p></div>
