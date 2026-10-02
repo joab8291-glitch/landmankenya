@@ -14,7 +14,8 @@
       --brand:#0d6b55;--brand2:#164c40;--lime:#d7ee75;--line:#e7eae5;
       --shadow:0 24px 70px rgba(17,24,39,.10);--radius:24px;
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    *{box-sizing:border-box} html{scroll-behavior:auto}
+    body:before{content:"";position:fixed;inset:0;background:url("/landman-logo.jpg") center 46%/min(720px,58vw) auto no-repeat;opacity:.035;pointer-events:none;z-index:-1;filter:grayscale(1)}
     body{margin:0;font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
     a{text-decoration:none;color:inherit} button,input,select{font:inherit}
     .container{width:min(1180px,calc(100% - 40px));margin:auto}
@@ -66,9 +67,9 @@
 <body>
   <div class="topbar"><div class="container inner"><span>Landman Properties Ltd · Trusted Kenyan real estate professionals</span><div class="toplinks"><span>✦ Verified listings</span><span>✦ Property consultations</span></div></div></div>
   <header><nav class="container">
-    <a class="logo" href="#"><img src="landman-logo.jpg" alt="Landman Properties Ltd" class="brand-logo"></a>
-    <div class="navlinks"><a href="#properties">Properties</a><a href="#services">Services</a><a href="#about">About</a><a href="#stories">Why Landman</a><a href="#contact">Contact</a></div>
-    <div class="nav-actions"><a class="btn btn-light" href="tel:+254798421521">0798 421521</a><a class="btn btn-dark" href="#contact">Book a consultation</a><button class="menu" aria-label="Menu">☰</button></div>
+    <a class="logo" href="/"><img src="landman-logo.jpg" alt="Landman Properties Ltd" class="brand-logo"></a>
+    <div class="navlinks"><a href="/">Home</a><a href="/properties/">Properties</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/why-choose-us/">Why Choose Us</a><a href="/contact/">Contact Us</a></div>
+    <div class="nav-actions"><a class="btn btn-dark" href="/contact/">Contact Us</a><button class="menu" aria-label="Menu">☰</button></div>
   </nav></header>
 
   <main>
@@ -77,7 +78,7 @@
         <div class="eyebrow">Property, simplified</div>
         <h1>Find a place that feels like <em style="color:var(--brand);font-style:normal">home.</em></h1>
         <p class="hero-copy">Discover carefully selected homes, apartments, commercial spaces and prime land opportunities across Kenya — with a team that guides you from search to ownership.</p>
-        <div class="hero-buttons"><a class="btn btn-dark" href="#properties">Explore properties ↗</a><a class="btn btn-light" href="#contact">Talk to an expert</a></div>
+        <div class="hero-buttons"><a class="btn btn-dark" href="/properties/">Explore properties ↗</a><a class="btn btn-light" href="/contact/">Talk to an expert</a></div>
         <div class="trust"><div><strong>2013</strong>Established</div><div><strong>10+</strong>Years of trust</div><div><strong>Kenya</strong>Local expertise</div></div>
       </div>
       <div class="hero-media reveal"><div class="hero-img"></div><div class="floating"><small>Featured opportunity</small><strong>Prime land & homes</strong><span style="font-size:13px;color:#687386">Talk to Landman for current availability →</span></div></div>
@@ -87,7 +88,7 @@
       <div class="field"><label>Looking for</label><select><option>Any property</option><option>Homes</option><option>Apartments</option><option>Land</option><option>Commercial</option></select></div>
       <div class="field"><label>Location</label><select><option>Any location</option><option>Nairobi</option><option>Kiambu</option><option>Nyeri</option><option>Other Kenya</option></select></div>
       <div class="field"><label>Purpose</label><select><option>Buy</option><option>Rent</option><option>Invest</option></select></div>
-      <button class="btn btn-green" onclick="document.querySelector('#properties').scrollIntoView({behavior:'smooth'})">Search properties</button>
+      <button class="btn btn-green" >Search properties</button>
     </div></div>
 
     <section id="properties"><div class="container">
@@ -116,16 +117,16 @@
       <a class="btn btn-dark" href="#contact">Meet the Landman team →</a></div>
     </div></section>
 
-    <section id="stories" style="padding-top:20px"><div class="container"><div class="section-head reveal"><div><div class="eyebrow">Why Landman</div><h2>A modern experience built around trust.</h2></div></div><div class="stats reveal"><div class="stat"><strong>2013</strong><span>Year established</span></div><div class="stat"><strong>Kenya</strong><span>Local market expertise</span></div><div class="stat"><strong>1:1</strong><span>Personal property guidance</span></div></div></div></section>
+    <section id="stories" style="padding-top:20px"><div class="container"><div class="section-head reveal"><div><div class="eyebrow">Why Choose Us</div><h2>A modern experience built around trust.</h2></div></div><div class="stats reveal"><div class="stat"><strong>2013</strong><span>Year established</span></div><div class="stat"><strong>Kenya</strong><span>Local market expertise</span></div><div class="stat"><strong>1:1</strong><span>Personal property guidance</span></div></div></div></section>
 
-    <section><div class="container"><div class="cta reveal"><div><div class="eyebrow" style="color:#244f3c">Let's find your next move</div><h2>Have a property in mind?</h2><p>Tell us what you are looking for and our team can guide you through the next step.</p></div><a class="btn btn-dark" href="tel:+254798421521">Call 0798 421521 ↗</a></div></div></section>
+    <section><div class="container"><div class="cta reveal"><div><div class="eyebrow" style="color:#244f3c">Let's find your next move</div><h2>Have a property in mind?</h2><p>Tell us what you are looking for and our team can guide you through the next step.</p></div><a class="btn btn-dark" href="/contact/">Contact Landman ↗</a></div></div></section>
   </main>
 
-  <footer id="contact"><div class="container">
+  <footer><div class="container">
     <div class="footgrid">
-      <div class="footer-brand"><a class="logo" href="#"><img src="landman-logo.jpg" alt="Landman Properties Ltd" class="brand-logo footer-logo"></a><p>Helping you find, buy, rent and market property with confidence.</p></div>
-      <div class="foot"><h4>Explore</h4><a href="#properties">Properties</a><a href="#services">Services</a><a href="#about">About us</a><a href="#stories">Why Landman</a></div>
-      <div class="foot"><h4>Services</h4><a href="#services">Residential</a><a href="#services">Apartments</a><a href="#services">Commercial</a><a href="#services">Land</a></div>
+      <div class="footer-brand"><a class="logo" href="/"><img src="landman-logo.jpg" alt="Landman Properties Ltd" class="brand-logo footer-logo"></a><p>Helping you find, buy, rent and market property with confidence.</p></div>
+      <div class="foot"><h4>Explore</h4><a href="/properties/">Properties</a><a href="/services/">Services</a><a href="/about/">About us</a><a href="/why-choose-us/">Why Landman</a></div>
+      <div class="foot"><h4>Services</h4><a href="/services/">Residential</a><a href="#services">Apartments</a><a href="#services">Commercial</a><a href="#services">Land</a></div>
       <div class="foot"><h4>Get in touch</h4>
 <a href="tel:+254798421521">0798 421521 · Mobile</a>
 <a href="mailto:landmankenya@gmail.com">landmankenya@gmail.com</a>
