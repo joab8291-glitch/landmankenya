@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://landmankenya.co.ke/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://landmankenya.co.ke/services/</loc><priority>0.95</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://landmankenya.co.ke/about/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://landmankenya.co.ke/why-choose-us/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://landmankenya.co.ke/contact/</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://landmankenya.co.ke/properties/</loc><priority>0.75</priority><changefreq>weekly</changefreq></url>
+</urlset>
