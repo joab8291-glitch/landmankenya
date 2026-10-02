@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/properties/:slug",
+      "destination": "/api/property?slug=:slug"
+    }
+  ]
+}
