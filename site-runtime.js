@@ -14,7 +14,7 @@
       const s=document.createElement("script");
       s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(id);
       document.head.appendChild(s);
-    } catch(e) {}
+    } catch(e) { console.error("[Landman] Runtime data error:",e); }
   };
   const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
   const money=v=>v?new Intl.NumberFormat("en-KE",{style:"currency",currency:"KES",maximumFractionDigits:0}).format(v):"Enquire";
@@ -24,7 +24,7 @@
     box.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>track("select_content",{content_type:"property",content_id:a.getAttribute("href")})));
   };
   const loadListings=async()=>{
-    try { const r=await fetch("/api/listings",{cache:"no-store"}); if(!r.ok)return; const data=await r.json(); renderListings((data.listings||[]).filter(x=>x.published!==false)); } catch(e) {}
+    try { const r=await fetch("/api/listings",{cache:"no-store"}); if(!r.ok){console.error("[Landman] Listings request failed:",r.status);return;} const data=await r.json(); renderListings((data.listings||[]).filter(x=>x.published!==false)); } catch(e) {}
   };
   const setupSearch=()=>{
     const btn=document.querySelector(".search-box .btn"); if(!btn)return;
@@ -35,7 +35,7 @@
       track("search",{search_term:[type,location,purpose].join(" ")});
       try{
         const r=await fetch("/api/listings?type="+encodeURIComponent(type)+"&location="+encodeURIComponent(location)+"&purpose="+encodeURIComponent(purpose));
-        if(r.ok){const d=await r.json();renderListings((d.listings||[]).filter(x=>x.published!==false));}
+        if(r.ok){const d=await r.json();renderListings((d.listings||[]).filter(x=>x.published!==false));}else console.error("[Landman] Property search failed:",r.status);
       }catch(e){}
     });
   };
