@@ -69,6 +69,15 @@ async function writeListings(data, sha, message) {
   if (!r.ok) throw new Error(out.message || ("GitHub write failed: " + r.status));
   return out;
 }
+
+function seoFor(x) {
+  const location=String(x.location||"Kenya").trim(), type=String(x.type||"Property").trim(), purpose=String(x.purpose||"Sale").trim().toLowerCase(), title=String(x.title||"").trim();
+  const price=x.price ? " KSh "+Number(x.price).toLocaleString("en-KE") : "";
+  const seoTitle=([title,type,purpose,location].filter(Boolean).join(" | ")+" | Landman Properties").replace(/\s+/g," ").slice(0,60);
+  const features=Array.isArray(x.features)&&x.features.length ? " "+x.features.slice(0,5).join(", ")+".":"";
+  const seoDescription=("Explore "+title+" in "+location+", Kenya. "+type+" for "+purpose+"."+price+features+" Contact Landman Properties for viewing and property information.").replace(/\s+/g," ").slice(0,160);
+  return {seoTitle,seoDescription};
+}
 function cleanListing(x) {
   const title = String(x.title || "").trim();
   if (!title) throw new Error("Property title is required");
@@ -90,8 +99,8 @@ function cleanListing(x) {
     features: Array.isArray(x.features) ? x.features.map(v => String(v).trim()).filter(Boolean).slice(0, 30) : [],
     images: Array.isArray(x.images) ? x.images.map(v => String(v).trim()).filter(Boolean).slice(0, 20) : [],
     published: x.published !== false,
-    seoTitle: String(x.seoTitle || "").trim(),
-    seoDescription: String(x.seoDescription || "").trim(),
+    seoTitle: seoFor(x).seoTitle,
+    seoDescription: seoFor(x).seoDescription,
     updatedAt: new Date().toISOString()
   };
 }
@@ -117,6 +126,22 @@ module.exports = async (req, res) => {
     }
 
     if (!validSession(req)) return json(res, 401, { error: "Unauthorized" });
+
+    if (action === "upload") {
+      if (req.method !== "POST") return json(res,405,{error:"Method not allowed"});
+      const b=await body(req);
+      const m=String(b.dataUrl||"").match(/^data:(image\/(?:png|jpeg));base64,([A-Za-z0-9+/=]+)$/i);
+      if(!m) return json(res,400,{error:"Only PNG and JPG/JPEG images are allowed"});
+      const bytes=Buffer.from(m[2],"base64");
+      if(bytes.length>6*1024*1024) return json(res,413,{error:"Image is too large. Maximum size is 6 MB."});
+      const ext=m[1].toLowerCase()==="image/png"?"png":"jpg";
+      const safe=String(b.filename||"property-image").replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,60)||"property-image";
+      const path="public/images/properties/"+Date.now()+"-"+safe+"."+ext;
+      const r=await fetch("https://api.github.com/repos/"+REPO+"/contents/"+path,{method:"PUT",headers:{...headers(),"Content-Type":"application/json"},body:JSON.stringify({message:"Upload property image via admin",content:bytes.toString("base64"),branch:BRANCH})});
+      const out=await r.json(); if(!r.ok) throw new Error(out.message||"Image upload failed");
+      return json(res,200,{ok:true,path:"/"+path.replace(/^public\//,"")});
+    }
+
 
     if (req.method === "GET") {
       const { data } = await readListings();
