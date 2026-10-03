@@ -1,0 +1,29 @@
+# Landman Properties Ltd
+
+> Professional property management company in Kenya serving residential and commercial property owners.
+
+## Website
+- Homepage: https://landmankenya.co.ke/
+- Services: https://landmankenya.co.ke/services/
+- Portfolio: https://landmankenya.co.ke/properties/
+- About: https://landmankenya.co.ke/about/
+- Why Choose Us: https://landmankenya.co.ke/why-choose-us/
+- Contact: https://landmankenya.co.ke/contact/
+
+## Core services
+- Property management: day-to-day oversight of managed properties.
+- Tenant management: tenant communication, onboarding and tenancy support.
+- Rent collection: organised rent collection and payment follow-up for property owners.
+- Property letting: marketing and tenant placement for available properties.
+- Property maintenance: coordinating repairs and routine property care.
+- Property inspections: property condition checks and reporting.
+- Property marketing: promoting properties to suitable prospective tenants or buyers.
+- Portfolio reporting: clear updates to owners on property performance and activity.
+
+## Audience
+Property owners, landlords and investors seeking professional residential or commercial property management services in Kenya.
+
+## Contact
+Landman Properties Ltd
+Phone: +254 798 421 521
+Email: landmankenya@gmail.com
