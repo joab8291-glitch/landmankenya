@@ -1,11 +1,10 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "outputDirectory": ".",
-  "rewrites": [
-    {
-      "source": "/properties/:slug",
-      "destination": "/api/property?slug=:slug"
-    }
+  "$schema":"https://openapi.vercel.sh/vercel.json",
+  "framework":null,
+  "outputDirectory":".",
+  "rewrites":[
+    {"source":"/admin","destination":"/admin/index.html"},
+    {"source":"/admin/","destination":"/admin/index.html"},
+    {"source":"/properties/:slug","destination":"/api/property?slug=:slug"}
   ]
 }
