@@ -333,3 +333,62 @@ header nav{position:relative}
   .owner-strip{flex-direction:column!important;align-items:flex-start!important}
   .owner-strip .btn{max-width:100%;white-space:normal}
 }
+
+/* Homepage hero proof points — deliberate, aligned glass cards instead of a loose text row. */
+.hero .trust{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:10px!important;
+  width:100%;
+  margin-top:26px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  background-image:none!important;
+  color:#f4f8f4!important;
+  font-size:11px!important;
+}
+.hero .trust>div{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:6px!important;
+  min-width:0;
+  min-height:90px;
+  padding:14px 13px!important;
+  border:1px solid rgba(255,255,255,.25)!important;
+  border-radius:15px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.075))!important;
+  box-shadow:0 10px 26px rgba(0,0,0,.08)!important;
+  backdrop-filter:blur(12px);
+  color:#e3eee6!important;
+  line-height:1.35!important;
+  overflow-wrap:anywhere;
+}
+.hero .trust>div strong{
+  display:block!important;
+  color:#fff!important;
+  font-family:Manrope,Arial,sans-serif!important;
+  font-size:clamp(16px,1.6vw,22px)!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:-.035em;
+  white-space:normal!important;
+}
+.hero .trust>div:nth-child(2) strong{font-size:clamp(13px,1.25vw,18px)!important;letter-spacing:-.025em}
+.hero .trust>div:nth-child(3) strong{color:#ffad78!important}
+@media(max-width:760px){
+  .hero .trust{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:20px!important}
+  .hero .trust>div{min-height:82px;padding:11px 9px!important;border-radius:12px!important;font-size:10px!important}
+  .hero .trust>div strong{font-size:16px!important}
+  .hero .trust>div:nth-child(2) strong{font-size:12px!important}
+}
+@media(max-width:380px){
+  .hero .trust{grid-template-columns:1fr!important;gap:8px!important}
+  .hero .trust>div{min-height:0;display:grid!important;grid-template-columns:minmax(70px,auto) 1fr!important;align-items:center!important;gap:12px!important;padding:12px 14px!important}
+  .hero .trust>div strong,.hero .trust>div:nth-child(2) strong{font-size:17px!important}
+}
