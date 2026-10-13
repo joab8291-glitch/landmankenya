@@ -1,0 +1,76 @@
+/* Landman Properties Ltd — brand facelift
+   Shared visual layer: forest green, bright orange and white.
+   Keeps each page's existing content, links and functionality intact. */
+:root{
+  --ink:#14251f !important;
+  --muted:#5d6b64 !important;
+  --paper:#fbfaf7 !important;
+  --white:#fff !important;
+  --brand:#176b50 !important;
+  --dark:#123b2e !important;
+  --lime:#ff8a42 !important;
+  --line:#e5e9e4 !important;
+  --shadow:0 24px 70px rgba(18,59,46,.10) !important;
+  --landman-orange:#f47b35;
+  --landman-orange-soft:#fff0e6;
+}
+html{scroll-behavior:smooth;scroll-padding-top:105px}
+body{background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+::selection{background:#ffd2b4;color:#173d30}
+a,button,input,select,textarea{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f47b35;outline-offset:3px}
+header{box-shadow:0 8px 28px rgba(20,45,35,.035)}
+nav{position:relative}
+.navlinks a,.nav a{transition:color .2s ease,background .2s ease}
+.navlinks a:hover,.nav a:hover,.nav a[aria-current="page"]{color:var(--landman-orange)!important}
+.brand-logo,.logo img{transition:transform .25s ease}
+.logo:hover .brand-logo,.logo:hover img{transform:translateY(-1px)}
+.btn,.contact-btn,.hero-buttons a,.nav-actions a{transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease}
+.btn:hover,.contact-btn:hover,.hero-buttons a:hover,.nav-actions a:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(18,59,46,.18)}
+.btn-green,.btn-light,.hero .btn,.cta .btn{background:var(--landman-orange)!important;color:#18251f!important}
+.btn-green:hover,.hero .btn:hover,.cta .btn:hover{background:#ff9859!important}
+.btn-dark,.contact-btn{background:var(--dark)!important;color:#fff!important}
+.btn-light{background:#fff!important;color:var(--dark)!important;border:1px solid var(--line)!important}
+.eyebrow{color:var(--brand)!important}
+.hero .eyebrow,.dark .eyebrow,.hero .eyebrow[style]{color:#ffad78!important}
+.hero{isolation:isolate}
+.hero:not(.dark){position:relative}
+.hero h1 em,.hero h1 strong{color:var(--landman-orange)!important}
+.hero-img{box-shadow:0 28px 70px rgba(18,59,46,.17);border:1px solid rgba(255,255,255,.65)}
+.floating{border-top:3px solid var(--landman-orange)}
+.search-box,.filters{box-shadow:0 20px 55px rgba(18,59,46,.09);border-color:#e4e9e3}
+.field:focus-within{box-shadow:0 0 0 2px rgba(244,123,53,.22)}
+.tag{box-shadow:0 5px 16px rgba(0,0,0,.08)}
+.price{background:var(--dark)!important;border-left:3px solid var(--landman-orange)}
+.card{box-shadow:0 8px 26px rgba(18,59,46,.045);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.card:hover{border-color:#f5bd98;box-shadow:0 22px 48px rgba(18,59,46,.12)}
+.service .icon,.icon{background:var(--landman-orange-soft)!important;color:var(--dark)!important}
+.dark{background:linear-gradient(135deg,#123b2e 0%,#0d3025 100%)!important}
+.dark .service{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.055);transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.dark .service:hover{transform:translateY(-4px);border-color:rgba(255,138,66,.6);background:rgba(255,255,255,.085)}
+.dark .service .icon{background:var(--landman-orange)!important;color:#173b2e!important}
+.check i{background:var(--landman-orange-soft)!important;color:var(--dark)!important}
+.cta{background:linear-gradient(120deg,#fff0e6 0%,#ffe0cb 58%,#ffd0ad 100%)!important;border:1px solid #f6d1b9;box-shadow:0 20px 55px rgba(18,59,46,.06)}
+.cta .eyebrow{color:var(--brand)!important}
+.stats .stat{transition:background .2s ease}
+.stats .stat:hover{background:#fff8f2}
+footer{background:#0b2a21!important}
+.foot a,.footgrid a{transition:color .2s ease}
+.foot a:hover,.footgrid a:hover{color:#ffad78!important}
+.wa{box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .2s ease}
+.wa:hover{transform:translateY(-3px) scale(1.03)}
+.mobile-open{border:1px solid var(--line);box-shadow:0 20px 55px rgba(18,59,46,.16)!important}
+.mobile-open a{padding:9px 0}
+section{scroll-margin-top:100px}
+img{max-width:100%}
+@media(max-width:950px){
+  header nav{gap:12px}
+  .mobile-open{background:#fff!important}
+}
+@media(max-width:620px){
+  .hero-buttons a,.hero .btn,.cta .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+  .floating{max-width:calc(100% - 36px)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
