@@ -161,3 +161,118 @@ input:focus,select:focus,textarea:focus{border-color:#176b50!important;box-shado
  html{scroll-behavior:auto!important}
  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* --- Photo-led background system: inspired by Macho Homelands, in Landman's brand --- */
+:root{
+  --landman-forest:#103d2e;
+  --landman-forest-deep:#08291f;
+  --landman-orange:#f47b35;
+  --landman-glass:rgba(255,255,255,.92);
+}
+/* No large, flat colour fields: use real property photography under controlled overlays. */
+body{
+  background-color:#edf2ec!important;
+  background-image:
+    linear-gradient(135deg,rgba(245,248,243,.95),rgba(235,241,233,.90)),
+    url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=80")!important;
+  background-position:center,center;
+  background-size:cover,cover;
+  background-attachment:scroll,scroll;
+  background-repeat:no-repeat,no-repeat;
+  background-attachment:fixed,fixed;
+}
+/* Image-led hero, matching the cinematic property photography style. */
+.hero:not(.dark){
+  background-color:var(--landman-forest-deep)!important;
+  background-image:
+    linear-gradient(100deg,rgba(7,35,26,.94) 0%,rgba(13,62,44,.82) 52%,rgba(13,62,44,.40) 100%),
+    url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85")!important;
+  background-position:center,center 52%;
+  background-size:cover,cover;
+  background-repeat:no-repeat,no-repeat;
+}
+/* Photo-backed content sections alternate between residential and apartment imagery. */
+.section:not(.dark),section:not(.hero):not(.dark):not(.cta):not(.trust){
+  background-color:#eaf0e8;
+  background-image:
+    linear-gradient(115deg,rgba(246,249,244,.94),rgba(235,242,233,.88)),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80");
+  background-position:center,center;
+  background-size:cover,cover;
+  background-repeat:no-repeat,no-repeat;
+}
+.section:nth-of-type(even),section:not(.hero):not(.dark):not(.cta):not(.trust):nth-of-type(even){
+  background-image:
+    linear-gradient(115deg,rgba(239,246,238,.93),rgba(224,236,224,.87)),
+    url("https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1800&q=80");
+}
+/* Existing dark feature bands retain their contrast but gain cinematic image depth. */
+.dark:not(header):not(footer){
+  background-color:var(--landman-forest-deep)!important;
+  background-image:
+    linear-gradient(110deg,rgba(7,36,26,.94),rgba(15,75,51,.86)),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80")!important;
+  background-position:center,center;
+  background-size:cover,cover;
+  background-repeat:no-repeat,no-repeat;
+  color:#fff!important;
+}
+.trust,.owner-strip{
+  background-color:#0a3023!important;
+  background-image:
+    linear-gradient(100deg,rgba(7,39,28,.91),rgba(15,75,51,.84)),
+    url("https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1800&q=80")!important;
+  background-position:center,center;
+  background-size:cover,cover;
+  color:#fff;
+}
+/* Cards sit above photo backgrounds as lightly frosted surfaces for readable content. */
+.card,.panel,.service,.note,.search-box,.filters,.empty,.stat{
+  backdrop-filter:blur(8px);
+}
+.card,.panel,.search-box,.filters,.empty{
+  background:rgba(255,255,255,.93)!important;
+  border:1px solid rgba(16,61,46,.12)!important;
+}
+.service{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(240,247,239,.89))!important;
+  border:1px solid rgba(16,61,46,.12)!important;
+}
+.dark .service{
+  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.055))!important;
+  color:#fff!important;
+}
+.dark .service h3,.dark .service p,.dark h2,.dark h3{color:#fff!important}
+.dark .service p{color:#dce9e1!important}
+.cta{
+  background-image:
+    linear-gradient(115deg,rgba(255,247,239,.94),rgba(255,225,203,.88)),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80")!important;
+  background-position:center,center;
+  background-size:cover,cover;
+}
+footer,.foot{
+  background-color:#08291f!important;
+  background-image:
+    linear-gradient(110deg,rgba(5,30,22,.96),rgba(9,49,35,.92)),
+    url("https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1800&q=80")!important;
+  background-position:center,center;
+  background-size:cover,cover;
+  color:#f5faf5!important;
+}
+footer p,footer small,.foot p,.foot small{color:#d2e1d7}
+.price{background:var(--landman-forest-deep)!important;color:#fff!important}
+.tag{background:var(--landman-orange)!important;color:#17281f!important}
+.eyebrow{color:#176b50!important}
+.hero .eyebrow,.dark .eyebrow,.trust .eyebrow,.owner-strip .eyebrow{color:#ffad78!important}
+.hero h1 em,.hero h1 strong{color:#ff9a60!important}
+@media(max-width:760px){
+  body{background-attachment:scroll,scroll!important}
+  .hero:not(.dark){background-position:center,62% center!important}
+  .section:not(.dark),section:not(.hero):not(.dark):not(.cta):not(.trust){
+    background-attachment:scroll,scroll!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body,.section,section{background-attachment:scroll!important}
+}
