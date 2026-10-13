@@ -27,10 +27,10 @@ nav{position:relative}
 .logo:hover .brand-logo,.logo:hover img{transform:translateY(-1px)}
 .btn,.contact-btn,.hero-buttons a,.nav-actions a{transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease}
 .btn:hover,.contact-btn:hover,.hero-buttons a:hover,.nav-actions a:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(18,59,46,.18)}
-.btn-green,.btn-light,.hero .btn,.cta .btn{background:var(--landman-orange)!important;color:#18251f!important}
+.btn-green,.hero .btn:not(.btn-dark):not(.btn-light),.hero .btn-dark,.cta .btn{background:var(--landman-orange)!important;color:#18251f!important}
 .btn-green:hover,.hero .btn:hover,.cta .btn:hover{background:#ff9859!important}
 .btn-dark,.contact-btn{background:var(--dark)!important;color:#fff!important}
-.btn-light{background:#fff!important;color:var(--dark)!important;border:1px solid var(--line)!important}
+.btn-light,.hero .btn-light{background:#fff!important;color:var(--dark)!important;border:1px solid var(--line)!important}
 .eyebrow{color:var(--brand)!important}
 .hero .eyebrow,.dark .eyebrow,.hero .eyebrow[style]{color:#ffad78!important}
 .hero{isolation:isolate}
