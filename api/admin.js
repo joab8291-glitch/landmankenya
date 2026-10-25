@@ -1,179 +1,20 @@
-const crypto = require("crypto");
-
-const REPO = process.env.GITHUB_REPO || "joab8291-glitch/landmankenya";
-const BRANCH = process.env.GITHUB_BRANCH || "main";
-const COOKIE = "landman_admin";
-const MAX_AGE = 60 * 60 * 8;
-
-function json(res, status, body) {
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.status(status).json(body);
-}
-function token(exp) {
-  const data = String(exp);
-  const sig = crypto.createHmac("sha256", process.env.ADMIN_PASSWORD || "").update(data).digest("hex");
-  return data + "." + sig;
-}
-function validSession(req) {
-  const header = req.headers.cookie || "";
-  const m = header.match(new RegExp("(^|;\\s*)" + COOKIE + "=([^;]+)"));
-  if (!m || !process.env.ADMIN_PASSWORD) return false;
-  const [exp, sig] = m[2].split(".");
-  if (!exp || !sig || Number(exp) < Math.floor(Date.now() / 1000)) return false;
-  const expected = crypto.createHmac("sha256", process.env.ADMIN_PASSWORD).update(exp).digest("hex");
-  try { return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected)); } catch (_) { return false; }
-}
-function cookie(value, maxAge = MAX_AGE) {
-  return COOKIE + "=" + value + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=" + maxAge;
-}
-function body(req) {
-  return new Promise((resolve, reject) => {
-    if (req.body && typeof req.body === "object") return resolve(req.body);
-    let raw = "";
-    req.on("data", c => { raw += c; if (raw.length > 1000000) reject(new Error("Request too large")); });
-    req.on("end", () => { try { resolve(raw ? JSON.parse(raw) : {}); } catch (e) { reject(e); } });
-    req.on("error", reject);
-  });
-}
-function headers() {
-  const h = { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
-  if (process.env.GITHUB_TOKEN) h.Authorization = "Bearer " + process.env.GITHUB_TOKEN;
-  return h;
-}
-async function gh(path, options = {}) {
-  const r = await fetch("https://api.github.com/repos/" + REPO + "/contents/" + path + "?ref=" + encodeURIComponent(BRANCH), {
-    ...options, headers: { ...headers(), ...(options.headers || {}) }
-  });
-  const text = await r.text();
-  let data; try { data = JSON.parse(text); } catch (_) { data = { message: text }; }
-  if (!r.ok) throw new Error(data.message || ("GitHub API " + r.status));
-  return data;
-}
-async function readListings() {
-  const f = await gh("data/listings.json");
-  return { sha: f.sha, data: JSON.parse(Buffer.from(f.content, "base64").toString("utf8")) };
-}
-async function writeListings(data, sha, message) {
-  if (!process.env.GITHUB_TOKEN) throw new Error("GITHUB_TOKEN is not configured");
-  const r = await fetch("https://api.github.com/repos/" + REPO + "/contents/data/listings.json", {
-    method: "PUT",
-    headers: { ...headers(), "Content-Type": "application/json" },
-    body: JSON.stringify({
-      message,
-      content: Buffer.from(JSON.stringify(data, null, 2) + "\n").toString("base64"),
-      sha,
-      branch: BRANCH
-    })
-  });
-  const out = await r.json();
-  if (!r.ok) throw new Error(out.message || ("GitHub write failed: " + r.status));
-  return out;
-}
-
-function seoFor(x) {
-  const location=String(x.location||"Kenya").trim(), type=String(x.type||"Property").trim(), purpose=String(x.purpose||"Sale").trim().toLowerCase(), title=String(x.title||"").trim();
-  const price=x.price ? " KSh "+Number(x.price).toLocaleString("en-KE") : "";
-  const seoTitle=([title,type,purpose,location].filter(Boolean).join(" | ")+" | Landman Properties").replace(/\s+/g," ").slice(0,60);
-  const features=Array.isArray(x.features)&&x.features.length ? " "+x.features.slice(0,5).join(", ")+".":"";
-  const seoDescription=("Explore "+title+" in "+location+", Kenya. "+type+" for "+purpose+"."+price+features+" Contact Landman Properties for viewing and property information.").replace(/\s+/g," ").slice(0,160);
-  return {seoTitle,seoDescription};
-}
-function cleanListing(x) {
-  const title = String(x.title || "").trim();
-  if (!title) throw new Error("Property title is required");
-  const slug = String(x.slug || title).toLowerCase().trim()
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 120);
-  if (!slug) throw new Error("A valid property slug is required");
-  const price = x.price === "" || x.price == null ? null : Number(x.price);
-  return {
-    id: String(x.id || crypto.randomUUID()),
-    slug,
-    title,
-    type: String(x.type || "Property").trim(),
-    purpose: String(x.purpose || "Sale").trim(),
-    location: String(x.location || "Kenya").trim(),
-    price: Number.isFinite(price) ? price : null,
-    status: String(x.status || "Available").trim(),
-    bedrooms: x.bedrooms === "" || x.bedrooms == null ? null : Number(x.bedrooms),
-    description: String(x.description || "").trim(),
-    features: Array.isArray(x.features) ? x.features.map(v => String(v).trim()).filter(Boolean).slice(0, 30) : [],
-    images: Array.isArray(x.images) ? x.images.map(v => String(v).trim()).filter(Boolean).slice(0, 20) : [],
-    published: x.published !== false,
-    seoTitle: seoFor(x).seoTitle,
-    seoDescription: seoFor(x).seoDescription,
-    updatedAt: new Date().toISOString()
-  };
-}
-
-module.exports = async (req, res) => {
-  res.setHeader("Cache-Control", "no-store");
-  try {
-    const action = String(req.query.action || "").toLowerCase();
-
-    if (action === "login") {
-      if (req.method !== "POST") return json(res, 405, { error: "Method not allowed" });
-      const b = await body(req);
-      if (!process.env.ADMIN_PASSWORD || !b.password || b.password !== process.env.ADMIN_PASSWORD) {
-        return json(res, 401, { error: "Invalid password" });
-      }
-      res.setHeader("Set-Cookie", cookie(token(Math.floor(Date.now() / 1000) + MAX_AGE)));
-      return json(res, 200, { ok: true });
-    }
-
-    if (action === "logout") {
-      res.setHeader("Set-Cookie", cookie("", 0));
-      return json(res, 200, { ok: true });
-    }
-
-    if (!validSession(req)) return json(res, 401, { error: "Unauthorized" });
-
-    if (action === "upload") {
-      if (req.method !== "POST") return json(res,405,{error:"Method not allowed"});
-      const b=await body(req);
-      const m=String(b.dataUrl||"").match(/^data:(image\/(?:png|jpeg));base64,([A-Za-z0-9+/=]+)$/i);
-      if(!m) return json(res,400,{error:"Only PNG and JPG/JPEG images are allowed"});
-      const bytes=Buffer.from(m[2],"base64");
-      if(bytes.length>6*1024*1024) return json(res,413,{error:"Image is too large. Maximum size is 6 MB."});
-      const ext=m[1].toLowerCase()==="image/png"?"png":"jpg";
-      const safe=String(b.filename||"property-image").replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,60)||"property-image";
-      const path="public/images/properties/"+Date.now()+"-"+safe+"."+ext;
-      const r=await fetch("https://api.github.com/repos/"+REPO+"/contents/"+path,{method:"PUT",headers:{...headers(),"Content-Type":"application/json"},body:JSON.stringify({message:"Upload property image via admin",content:bytes.toString("base64"),branch:BRANCH})});
-      const out=await r.json(); if(!r.ok) throw new Error(out.message||"Image upload failed");
-      return json(res,200,{ok:true,path:"/"+path.replace(/^public\//,"")});
-    }
-
-
-    if (req.method === "GET") {
-      const { data } = await readListings();
-      return json(res, 200, { listings: Array.isArray(data.listings) ? data.listings : [] });
-    }
-
-    const b = await body(req);
-    const { data, sha } = await readListings();
-    const listings = Array.isArray(data.listings) ? data.listings : [];
-
-    if (action === "save") {
-      const item = cleanListing(b.listing || {});
-      const index = listings.findIndex(x => String(x.id || "") === item.id || String(x.slug || "") === item.slug);
-      const duplicate = listings.findIndex((x, i) => String(x.slug || "") === item.slug && i !== index);
-      if (duplicate >= 0) return json(res, 409, { error: "Another property already uses this slug" });
-      if (index >= 0) listings[index] = item; else listings.unshift(item);
-      await writeListings({ listings }, sha, (index >= 0 ? "Update" : "Add") + " property listing via admin");
-      return json(res, 200, { ok: true, listing: item });
-    }
-
-    if (action === "delete") {
-      const id = String(b.id || "");
-      const index = listings.findIndex(x => String(x.id || "") === id);
-      if (index < 0) return json(res, 404, { error: "Property not found" });
-      const removed = listings.splice(index, 1)[0];
-      await writeListings({ listings }, sha, "Delete property listing via admin");
-      return json(res, 200, { ok: true, removed });
-    }
-
-    return json(res, 400, { error: "Unknown action" });
-  } catch (e) {
-    console.error("[admin]", e);
-    return json(res, 500, { error: e.message || "Admin operation failed" });
-  }
-};
+const crypto=require('crypto');
+const OWNER=process.env.GITHUB_OWNER||'joab8291-glitch';
+const REPO=process.env.GITHUB_REPO||'landmankenya';
+const BRANCH=process.env.GITHUB_BRANCH||'main';
+const TOKEN=process.env.GITHUB_TOKEN;
+const PASSWORD=process.env.ADMIN_PASSWORD||process.env.ADMIN_KEY;
+const DATA_PATH='data/listings.json';
+const SETTINGS_PATH='data/site-settings.json';
+const COOKIE='landman_admin';
+const maxAge=60*60*8;
+function json(res,status,data){res.status(status).setHeader('Content-Type','application/json');res.end(JSON.stringify(data));}
+function parseBody(req){return typeof req.body==='object'&&req.body?req.body:new Promise(resolve=>{let raw='';req.on('data',c=>raw+=c);req.on('end',()=>{try{resolve(raw?JSON.parse(raw):{})}catch(_){resolve({})}})})}
+function token(){const stamp=Math.floor(Date.now()/1000);const sig=crypto.createHmac('sha256',PASSWORD||'missing').update(String(stamp)).digest('hex');return `${stamp}.${sig}`}
+function valid(req){if(!PASSWORD)return false;const raw=(req.headers.cookie||'').split(';').map(v=>v.trim()).find(v=>v.startsWith(`${COOKIE}=`));if(!raw)return false;const [stamp,sig]=raw.slice(COOKIE.length+1).split('.');if(!stamp||!sig||Date.now()/1000-Number(stamp)>maxAge)return false;const expected=crypto.createHmac('sha256',PASSWORD).update(stamp).digest('hex');return crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(expected))}
+function cookie(value,clear=false){return `${COOKIE}=${value}; Path=/; HttpOnly; SameSite=Strict; ${clear?'Max-Age=0':'Max-Age='+maxAge}`}
+async function github(path,options={}){if(!TOKEN)throw new Error('GITHUB_TOKEN is not configured');const response=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,{...options,headers:{Accept:'application/vnd.github+json',Authorization:`Bearer ${TOKEN}`,'X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json',...(options.headers||{})}});const text=await response.text();let data;try{data=JSON.parse(text)}catch(_){data={message:text}}if(!response.ok)throw new Error(data.message||`GitHub request failed: ${response.status}`);return data}
+async function readFile(path,fallback){try{const data=await github(`${path}?ref=${encodeURIComponent(BRANCH)}`);return {value:JSON.parse(Buffer.from(data.content.replace(/\n/g,''),'base64').toString('utf8')),sha:data.sha}}catch(_){return {value:fallback,sha:null}}}
+async function writeFile(path,value,sha,message){const body={message,branch:BRANCH,content:Buffer.from(typeof value==='string'?value:JSON.stringify(value,null,2)).toString('base64')};if(sha)body.sha=sha;return github(path,{method:'PUT',body:JSON.stringify(body)})}
+function id(){return crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`}
+module.exports=async function(req,res){try{const body=await parseBody(req);const action=body.action||req.query?.action||'';if(req.method==='POST'&&action==='login'){if(!PASSWORD)return json(res,500,{error:'ADMIN_PASSWORD is not configured'});if(body.password!==PASSWORD)return json(res,401,{error:'Invalid admin password'});res.setHeader('Set-Cookie',cookie(token()));return json(res,200,{ok:true})}if(action==='logout'){res.setHeader('Set-Cookie',cookie('',true));return json(res,200,{ok:true})}if(!valid(req))return json(res,401,{error:'Admin login required'});const listings=await readFile(DATA_PATH,{listings:[]});const settings=await readFile(SETTINGS_PATH,{contactPhone:'+254798421521',contactEmail:'landmankenya@gmail.com',logo:'/landman-logo.png'});if(req.method==='GET'){return json(res,200,{listings:listings.value.listings||[],settings:settings.value,stats:{vacancies:(listings.value.listings||[]).filter(x=>x.status==='Vacancy').length,portfolio:(listings.value.listings||[]).filter(x=>x.status==='Portfolio').length,total:(listings.value.listings||[]).length}})}if(req.method!=='POST'&&req.method!=='PUT'&&req.method!=='DELETE')return json(res,405,{error:'Method not allowed'});if(action==='save-listing'){const item={...(body.listing||{}),id:(body.listing&&body.listing.id)||id(),updatedAt:new Date().toISOString()};const all=listings.value.listings||[];const index=all.findIndex(x=>x.id===item.id||x.slug===item.slug);if(index>=0)all[index]=item;else all.unshift(item);await writeFile(DATA_PATH,{listings:all},listings.sha,'Update Landman listing');return json(res,200,{ok:true,listing:item})}if(action==='delete-listing'){const all=(listings.value.listings||[]).filter(x=>x.id!==body.id&&x.slug!==body.id);await writeFile(DATA_PATH,{listings:all},listings.sha,'Delete Landman listing');return json(res,200,{ok:true})}if(action==='save-settings'){const next={...settings.value,...(body.settings||{}),updatedAt:new Date().toISOString()};await writeFile(SETTINGS_PATH,next,settings.sha,'Update Landman site settings');return json(res,200,{ok:true,settings:next})}if(action==='upload-image'){const file=body.file||{};if(!file.dataUrl||!file.name)return json(res,400,{error:'Image file is required'});const match=String(file.dataUrl).match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);if(!match)return json(res,400,{error:'Use a valid image file'});const safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,'-');const path=`images/uploads/${Date.now()}-${safe}`;const result=await github(path,{method:'PUT',body:JSON.stringify({message:'Upload Landman property image',branch:BRANCH,content:match[2]})});return json(res,200,{ok:true,path:`/${path}`,sha:result.content?.sha})}return json(res,400,{error:'Unknown admin action'})}catch(error){return json(res,500,{error:error.message||'Admin operation failed'})}};
